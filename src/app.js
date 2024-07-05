@@ -10,7 +10,8 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // Routes
-app.use('/api', router);
+// app.use('/auth', require('./routers/auth.router'));
+app.use(router);
 
 // Error handling middlewares
 app.use(errorHandler);

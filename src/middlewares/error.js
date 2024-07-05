@@ -38,23 +38,29 @@ class Conflict extends CustomError {
 }
 
 class InvalidInput extends CustomError {
-  constructor(message) {
-    super(422, message);
+  constructor(errors) {
+    super(422, errors);
+    this.errors = errors;
   }
 }
 
 const errorHandler = (err, req, res, next) => {
   // For debugging purposes, log the error stack
-  // console.log(err.stack);
+  console.log(err.stack);
 
-  const status = err.status;
   const statusCode = err.statusCode || 500;
 
-  res.status(statusCode).json({
-    status,
+  const response = {
+    status: err.status,
     statusCode,
-    message: err.message || 'Internal Server Error',
-  });
+  };
+  if (err.errors) {
+    response.errors = err.errors;
+  } else {
+    response.message = err.message || 'Internal Server Error';
+  }
+
+  res.status(statusCode).json(response);
 };
 
 module.exports = {

@@ -36,4 +36,13 @@ const User = sequelize.define(
     timestamps: true,
   }
 );
+
+// Modify the toJSON method of the model instance and delete password
+User.prototype.toJSON = function () {
+  const values = Object.assign({}, this.get());
+
+  delete values.password;
+  return values;
+};
+
 module.exports = User;
