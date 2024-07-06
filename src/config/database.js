@@ -32,7 +32,7 @@ const sequelize = new Sequelize({
 
 const connectDB = async () => {
   try {
-    // await sequelize.authenticate();
+    await sequelize.authenticate();
     console.log('Database connection successful');
   } catch (error) {
     console.log('Failed to connect to the database', error);
