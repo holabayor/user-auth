@@ -16,7 +16,7 @@ const authenticated = async (req, res, next) => {
     if (!req.user) {
       req.user = {};
     }
-    req.user.id = decoded.userId;
+    req.user.id = decoded.id;
     return next();
   } catch (error) {
     next(error);

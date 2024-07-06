@@ -1,14 +1,15 @@
 const { ResourceNotFound, Forbidden } = require('../middlewares/error');
 const { User, Organisation } = require('../models');
 
-const getOrganisation = async (id) => {
-  const organisation = await Organisation.findOne({ where: { orgId: id } });
+const getOrganisation = async (userId, orgId) => {
+  const user = await User.findOne({ where: { userId } });
+  const organisation = await Organisation.findOne({ where: { orgId } });
   if (!organisation) {
     throw new ResourceNotFound('Organisation not found');
   }
 
   const userOrganisations = await user.getOrganisations({
-    where: { orgId: id },
+    where: { orgId },
   });
   if (!userOrganisations.length) {
     throw new Forbidden('Access denied');
@@ -18,7 +19,10 @@ const getOrganisation = async (id) => {
 
 const getOrganisations = async (userId) => {
   const user = await User.findOne({ where: { userId } });
-  return await user.getOrganisations();
+  return await user.getOrganisations({
+    attributes: ['orgId', 'name', 'description'],
+    joinTableAttributes: [],
+  });
 };
 
 const createOrganisation = async (userId, data) => {
@@ -39,7 +43,7 @@ const addUserToOrganisation = async (userId, orgId) => {
 
   const organisation = await Organisation.findOne({ where: { orgId } });
   if (!organisation) {
-    throw new ResourceNotFound('Oorganisation not found');
+    throw new ResourceNotFound('Organisation not found');
   }
 
   await organisation.addUser(user);

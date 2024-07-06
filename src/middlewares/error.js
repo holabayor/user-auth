@@ -46,7 +46,7 @@ class InvalidInput extends CustomError {
 
 const errorHandler = (err, req, res, next) => {
   // For debugging purposes, log the error stack
-  console.log(err.stack);
+  // console.log(err.stack);
 
   const statusCode = err.statusCode || 500;
 

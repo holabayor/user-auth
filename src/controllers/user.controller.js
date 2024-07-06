@@ -37,7 +37,7 @@ const getUser = async (req, res) => {
   const user = await userService.getUser(req.user.id);
   res.status(200).json({
     status: 'success',
-    message: 'Login successful',
+    message: 'User retrieval successful',
     data: user,
   });
 };

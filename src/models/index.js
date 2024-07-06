@@ -5,6 +5,6 @@ const User = require('./user.model');
 User.belongsToMany(Organisation, { through: 'UserOrganisation' });
 Organisation.belongsToMany(User, { through: 'UserOrganisation' });
 
-sequelize.sync();
+// sequelize.sync();
 
 module.exports = { User, Organisation };

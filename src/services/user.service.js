@@ -22,7 +22,7 @@ const createUser = async (data) => {
 
   // Create user's organisation
   const organisation = await Organisation.create({
-    name: `${firstName}'s organisation`,
+    name: `${firstName}'s Organisation`,
   });
   await user.addOrganisation(organisation);
 

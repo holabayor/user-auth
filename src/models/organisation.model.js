@@ -19,7 +19,7 @@ const Organisation = sequelize.define(
   },
   {
     tableName: 'organisations',
-    timestamps: true,
+    timestamps: false,
   }
 );
 module.exports = Organisation;
