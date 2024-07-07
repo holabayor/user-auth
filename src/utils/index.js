@@ -4,8 +4,8 @@ const { Forbidden, InvalidInput } = require('../middlewares/error');
 
 /**
  *
- * @param {string} token
- * @returns
+ * @param {string} JSON Web Token string
+ * @returns Promise, decoded token object
  */
 const verifyToken = (token) => {
   try {
@@ -16,15 +16,31 @@ const verifyToken = (token) => {
   }
 };
 
+/**
+ *
+ * @param {string} password
+ * @returns Promise, generated hash for the given string
+ */
 const hashPassword = async (password) => {
   const saltRounds = 10;
   return await bcrypt.hash(password, saltRounds);
 };
 
+/**
+ *
+ * @param {string} password - plain text password
+ * @param {string} hashedPassword - hashed password to be compared with
+ * @returns Promise<boolean>
+ */
 const comparePassword = async (password, hashedPassword) => {
   return await bcrypt.compare(password, hashedPassword);
 };
 
+/**
+ *
+ * @param {object} Joi schema to validate data against
+ * @param {object} data to be validated
+ */
 const validateSchema = (schema, data) => {
   const { error } = schema.validate(data);
   if (error) {
@@ -35,11 +51,20 @@ const validateSchema = (schema, data) => {
     throw new InvalidInput(errors);
   }
 };
-// Function to generate a JWT token
+/**
+ *
+ * @param {object} payload  - data to be signed into the token
+ * @returns JSON Web Token string
+ */
 const generateToken = (payload) => {
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1hr' }); // Token expires in 1 hour
 };
 
+/**
+ *
+ * @param {method} fn
+ * @returns Promise
+ */
 const asyncWrapper = (fn) => {
   return async (req, res, next) => {
     try {
