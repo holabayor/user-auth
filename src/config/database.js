@@ -28,6 +28,12 @@ const sequelize = new Sequelize({
   dialect: 'postgres',
   ...config[env],
   logging: false,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
 });
 
 const connectDB = async () => {
