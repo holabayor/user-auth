@@ -3,9 +3,10 @@ const jwt = require('jsonwebtoken');
 const { Forbidden, InvalidInput } = require('../middlewares/error');
 
 /**
+ * Verifies a JSON Web Token
  *
  * @param {string} JSON Web Token string
- * @returns Promise, decoded token object
+ * @returns {Object} decoded token
  */
 const verifyToken = (token) => {
   try {
@@ -17,9 +18,10 @@ const verifyToken = (token) => {
 };
 
 /**
+ * Hashes a password with bcrypt
  *
  * @param {string} password
- * @returns Promise, generated hash for the given string
+ * @returns {Promise<string>} hashed password
  */
 const hashPassword = async (password) => {
   const saltRounds = 10;
@@ -27,19 +29,22 @@ const hashPassword = async (password) => {
 };
 
 /**
+ * Compares a plain text password with a hashed password
  *
  * @param {string} password - plain text password
  * @param {string} hashedPassword - hashed password to be compared with
- * @returns Promise<boolean>
+ * @returns {Promise<boolean>} true if password matches hashed password, false otherwise
  */
 const comparePassword = async (password, hashedPassword) => {
   return await bcrypt.compare(password, hashedPassword);
 };
 
 /**
+ * Validates data against a Joi schema
  *
- * @param {object} Joi schema to validate data against
- * @param {object} data to be validated
+ * @param {Object} - Joi schema to validate data against
+ * @param {Object} - data to validate against the schema
+ * @returns void
  */
 const validateSchema = (schema, data) => {
   const { error } = schema.validate(data);
@@ -51,19 +56,22 @@ const validateSchema = (schema, data) => {
     throw new InvalidInput(errors);
   }
 };
+
 /**
+ * Generates a JSON Web Token
  *
  * @param {object} payload  - data to be signed into the token
- * @returns JSON Web Token string
+ * @returns {string} - JSON Web Token string
  */
 const generateToken = (payload) => {
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1hr' }); // Token expires in 1 hour
 };
 
 /**
+ * An async wrapper for route handlers that catches errors
  *
- * @param {method} fn
- * @returns Promise
+ * @param {Function} fn - The asynchronous route handler function to wrap.
+ * @returns {Function} A function that wraps the route handler and catches errors.
  */
 const asyncWrapper = (fn) => {
   return async (req, res, next) => {
@@ -74,6 +82,7 @@ const asyncWrapper = (fn) => {
     }
   };
 };
+
 module.exports = {
   verifyToken,
   validateSchema,

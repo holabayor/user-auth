@@ -44,6 +44,15 @@ class InvalidInput extends CustomError {
   }
 }
 
+/**
+ * Error handler middleware
+ *
+ * @param {Error} err - The error object
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
+ * @returns {void} Calls the next middleware function
+ */
 const errorHandler = (err, req, res, next) => {
   // For debugging purposes, log the error stack
   // console.log(err.stack);
