@@ -18,7 +18,7 @@ describe('POST /auth/register', () => {
       lastName: 'Doe',
       email: 'johndoe@email.com',
       password: '123456',
-      phoneNumber: '08191234567',
+      phone: '08191234567',
     });
 
     expect(res.statusCode).toEqual(201);
@@ -44,7 +44,7 @@ describe('POST /auth/register', () => {
       lastName: 'Doe',
       email: 'johndoe@email.com',
       password: '123456',
-      phoneNumber: '08191234567',
+      phone: '08191234567',
     });
 
     expect(res.statusCode).toEqual(409);
@@ -58,7 +58,7 @@ describe('POST /auth/register', () => {
       lastName: 'Doe',
       email: 'johndoeemail.com',
       password: '123456',
-      phoneNumber: '08191234567',
+      phone: '08191234567',
     });
     // console.log('This is the response', res.body);
 
@@ -75,7 +75,7 @@ describe('POST /auth/register', () => {
       firstName: 'John',
       email: 'johndoeemail.com',
       password: '123456',
-      phoneNumber: '08191234567',
+      phone: '08191234567',
     });
     // console.log('This is the response', res.body);
 

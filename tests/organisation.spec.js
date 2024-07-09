@@ -16,7 +16,7 @@ beforeAll(async () => {
     lastName: 'Doe',
     email: 'johndoe@mail.com',
     password: hashedPassword,
-    phoneNumber: '08191234567',
+    phone: '08191234567',
   });
   userId = user.userId;
   token = generateToken({ id: user.userId });
@@ -118,7 +118,7 @@ describe('POST /api/organisations/:orgId/users', () => {
       lastName: 'Doe',
       email: 'jane@email.com',
       password: await hashPassword('password123'),
-      phoneNumber: '08187654321',
+      phone: '08187654321',
     });
 
     const res = await request(app)
