@@ -10,12 +10,12 @@ const { generateToken, hashPassword, comparePassword } = require('../utils');
  * @param {string} data.lastName - The last name of the user
  * @param {string} data.email - The email of the user
  * @param {string} data.password - The password of the user
- * @param {string} data.phoneNumber - The phone number of the user
+ * @param {string} data.phone - The phone number of the user
  * @throws {Conflict} - If a user with the email already exists
  * @returns {Promise<{token: string, user: User}>} - The created user and token
  */
 const createUser = async (data) => {
-  const { firstName, lastName, email, password, phoneNumber } = data;
+  const { firstName, lastName, email, password, phone } = data;
   const existingUser = await User.findOne({ where: { email } });
 
   if (existingUser) {
@@ -29,7 +29,7 @@ const createUser = async (data) => {
     lastName,
     email,
     password: hashedPassword,
-    phoneNumber,
+    phone,
   });
 
   // Create user's organisation
